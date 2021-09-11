@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app
+        xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+            https://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd
+            http://xmlns.oracle.com/weblogic/weblogic-web-app
+            https://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
+    <wls:container-descriptor>
+        <wls:prefer-application-packages>
+            <wls:package-name>org.slf4j.*</wls:package-name>
+            <wls:package-name>org.springframework.*</wls:package-name>
+            <wls:package-name>com.sun.xml.ws.api.wsdl.parser.*</wls:package-name>
+            <wls:package-name>com.fasterxml.jackson.*</wls:package-name>
+            <wls:package-name>javax.websocket.*</wls:package-name>
+            <wls:package-name>javax.websocket.server.*</wls:package-name>
+            <wls:package-name>log4j.*</wls:package-name>
+<!--            <wls:package-name>org.eclipse.*</wls:package-name>-->
+<!--            <wls:package-name>co.com.bancodeoccidente.*</wls:package-name>-->
+        </wls:prefer-application-packages>
+        <wls:prefer-application-resources>
+            <wls:resource-name>META-INF/services/javax.xml.ws.*</wls:resource-name>
+            <wls:resource-name>META-INF/services/com.sun.xml.ws.*</wls:resource-name>
+            <wls:resource-name>META-INF/services/com.sun.tools.ws.*</wls:resource-name>
+<!--            <wls:resource-name>co.com.bancodeoccidente.*</wls:resource-name>-->
+        </wls:prefer-application-resources>
+    </wls:container-descriptor>
+    <wls:resource-description>
+               <wls:res-ref-name>DSNOVEMP</wls:res-ref-name>
+               <wls:jndi-name>DSNOVEMP</wls:jndi-name>
+    </wls:resource-description>
+</wls:weblogic-web-app>

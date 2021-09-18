@@ -15,27 +15,21 @@ public class TblRegistrosEntity implements Serializable {
 
     @Id
     @Column(name = "ID_REGISTRO", nullable = false)
-//    @JsonProperty(value = "Id_Registro", required = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_SEQ")
     @SequenceGenerator(name = "ID_SEQ", sequenceName = "ID_SEQ", allocationSize = 1)
     private BigDecimal idRegistro;
 
     @Column(name = "TIPO_REGISTRO", nullable = false, length = 1)
-//    @JsonProperty(value = "Tipo_Registro", required = true)
     private String tipoRegistro;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_REGISTRO", nullable = false)
-//    @JsonProperty(value = "Fecha_Registro", required = true)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private Date fechaRegistro;
 
     @Column(name = "MONTO_REGISTRO", nullable = false, length = 20)
-//    @JsonProperty(value = "Monto_Registro", required = true)
     private String montoRegistro;
 
     @Column(name = "DESCRIP_REGISTRO", length = 250)
-//    @JsonProperty(value = "Descripcion_Registro", required = false)
     private String descripcionRegistro;
 
     public BigDecimal getIdRegistro() {

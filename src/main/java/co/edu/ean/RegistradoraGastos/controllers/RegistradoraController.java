@@ -19,7 +19,6 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class RegistradoraController {
 
-    //    @Autowired
     TblRegistrosDAO tblRegistrosDAO = new TblRegistrosDAOImpl();
 
     private ModelMapper modelMapper = new ModelMapper();
@@ -27,9 +26,7 @@ public class RegistradoraController {
 
     @PostMapping(value = "/Crear")
     public String crearRegistro(@RequestBody @Valid TblRegistrosDTO input) {
-        System.out.println(input.toString());
         TblRegistrosEntity TblRegistrosEntity = modelMapper.map(input, TblRegistrosEntity.class);
-        System.out.println(TblRegistrosEntity.toString());
         tblRegistrosDAO.crear(TblRegistrosEntity);
         return "Registro Creado";
     }
@@ -48,12 +45,12 @@ public class RegistradoraController {
     public String actualizarRegistro(@RequestBody @Valid TblRegistrosDTO input) {
         TblRegistrosEntity TblRegistrosEntity = modelMapper.map(input, TblRegistrosEntity.class);
         tblRegistrosDAO.actualizarRegistro(TblRegistrosEntity);
-        return "Registro Creado";
+        return "Registro Actualizado";
     }
 
     @PostMapping(value = "/Eliminar")
     public String borrarRegistro(@RequestBody @Valid TblRegistrosDTO input) {
         tblRegistrosDAO.borrarRegistro(input.getIdRegistro());
-        return "Registro Creado";
+        return "Registro Eliminado";
     }
 }

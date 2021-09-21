@@ -11,7 +11,7 @@ import java.util.Date;
     @NamedQuery(name = "TblRegistrosEntity.findAll", query="select o from TblRegistrosEntity o"),
 })
 @Table(name = "TBL_REGISTROS")
-public class TblRegistrosEntity implements Serializable {
+public class TblRegistrosEntity implements Serializable, Comparable<TblRegistrosEntity> {
 
     @Id
     @Column(name = "ID_REGISTRO", nullable = false)
@@ -95,4 +95,8 @@ public class TblRegistrosEntity implements Serializable {
         return buffer.toString();
     }
 
+    @Override
+    public int compareTo(TblRegistrosEntity o) {
+        return this.getIdRegistro().compareTo(o.getIdRegistro());
+    }
 }

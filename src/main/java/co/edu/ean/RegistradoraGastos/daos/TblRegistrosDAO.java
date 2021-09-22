@@ -11,5 +11,6 @@ public interface TblRegistrosDAO {
     List<TblRegistrosEntity> buscarTodos();
     void actualizarRegistro(TblRegistrosEntity registro);
     void borrarRegistro(BigDecimal registro);
+    void borrarTabla();
 
 }

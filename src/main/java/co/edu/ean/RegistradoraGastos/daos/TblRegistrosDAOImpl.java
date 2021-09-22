@@ -50,4 +50,10 @@ public class TblRegistrosDAOImpl implements TblRegistrosDAO{
         em.createNativeQuery("DELETE FROM TBL_REGISTROS WHERE ID_REGISTRO = ?strIdReg").setParameter("strIdReg", registro).executeUpdate();
         trans.commit();
     }
+
+    public void borrarTabla(){
+        trans.begin();
+        em.createNativeQuery("DELETE FROM TBL_REGISTROS").executeUpdate();
+        trans.commit();
+    }
 }

@@ -7,6 +7,7 @@ import co.edu.ean.RegistradoraGastos.dtos.TblRegistrosDTO;
 import co.edu.ean.RegistradoraGastos.entidades.TblRegistrosEntity;
 import co.edu.ean.RegistradoraGastos.enums.TipoOrdenamientoEnum;
 import co.edu.ean.RegistradoraGastos.logicanegocio.CalculoDineroNeto;
+import co.edu.ean.RegistradoraGastos.logicanegocio.OrdenamientoRegistros;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,10 @@ import java.util.stream.Collectors;
 public class RegistradoraController {
 
     TblRegistrosDAO tblRegistrosDAO = new TblRegistrosDAOImpl();
-
-    CalculoDineroNeto calculoDineroNeto = new CalculoDineroNeto();
+    @Autowired
+    CalculoDineroNeto calculoDineroNeto;
+    @Autowired
+    OrdenamientoRegistros ordenamientoRegistros;
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -71,29 +74,13 @@ public class RegistradoraController {
     @PostMapping(value = "/Ordenar")
     public List<TblRegistrosEntity> ordenarRegistros(@RequestBody @Valid OrdenamientoDTO infoOrd) {
         List<TblRegistrosEntity> listado = tblRegistrosDAO.buscarTodos();
-        if (infoOrd.getTipoOrd().equals(TipoOrdenamientoEnum.Monto)) {
-            Comparator<TblRegistrosEntity> compareByValue = (TblRegistrosEntity o1, TblRegistrosEntity o2) ->
-                    o1.getMontoRegistro().compareTo(o2.getMontoRegistro());
-            if (infoOrd.getEstrategiaOrd().intValue() == 0) {
-                Collections.sort(listado, compareByValue);
-            } else {
-                Collections.sort(listado, compareByValue.reversed());
-            }
-        } else if (infoOrd.getTipoOrd().equals(TipoOrdenamientoEnum.Id)) {
-            if (infoOrd.getEstrategiaOrd().intValue() == 0) {
-                Collections.sort(listado);
-            } else {
-                Collections.sort(listado, Collections.reverseOrder());
-            }
-        } else if (infoOrd.getTipoOrd().equals(TipoOrdenamientoEnum.Fecha)){
-            Comparator<TblRegistrosEntity> compareByDate = (TblRegistrosEntity o1, TblRegistrosEntity o2) ->
-                    o1.getFechaRegistro().compareTo(o2.getFechaRegistro());
-            if (infoOrd.getEstrategiaOrd().intValue() == 0) {
-                Collections.sort(listado, compareByDate);
-            } else {
-                Collections.sort(listado, compareByDate.reversed());
-            }
-        }
+        ordenamientoRegistros.ordenar(listado, infoOrd);
         return listado;
+    }
+
+    @GetMapping(value = "/BorrarTabla")
+    public String borrarTotalRegistros() {
+        tblRegistrosDAO.borrarTabla();
+        return "Se han borrado todos los registros";
     }
 }

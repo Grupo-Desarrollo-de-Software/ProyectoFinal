@@ -44,8 +44,7 @@ public class RegistradoraController {
         tblRegistrosDAO.crear(tblRegistrosEntity);
         return "Registro Creado";
     }
-
-    @Transactional
+    
     @GetMapping(value = "/BuscarTodos")
     public List<TblRegistrosDTO> buscarTodos() {
         List<TblRegistrosEntity> listado = tblRegistrosDAO.buscarTodos();

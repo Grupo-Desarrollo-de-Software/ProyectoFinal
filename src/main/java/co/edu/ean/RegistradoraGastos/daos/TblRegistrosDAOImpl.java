@@ -1,6 +1,8 @@
 package co.edu.ean.RegistradoraGastos.daos;
 
 import co.edu.ean.RegistradoraGastos.entidades.TblRegistrosEntity;
+import org.eclipse.persistence.config.HintValues;
+import org.eclipse.persistence.config.QueryHints;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +34,7 @@ public class TblRegistrosDAOImpl implements TblRegistrosDAO{
     }
 
     public List<TblRegistrosEntity> buscarTodos() {
-        return em.createNamedQuery("TblRegistrosEntity.findAll").getResultList();
+        return em.createNamedQuery("TblRegistrosEntity.findAll").setHint(QueryHints.REFRESH, HintValues.TRUE).getResultList();
     }
 
     public void actualizarRegistro(TblRegistrosEntity registro) {

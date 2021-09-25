@@ -1,6 +1,8 @@
 package co.edu.ean.RegistradoraGastos.entidades;
 
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,9 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/RegistradoraGastos")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods= {RequestMethod.GET,
+        RequestMethod.HEAD, RequestMethod.PATCH, RequestMethod.POST, RequestMethod.PUT})
+
 public class RegistradoraController {
 
     TblRegistrosDAO tblRegistrosDAO = new TblRegistrosDAOImpl();
@@ -41,7 +44,7 @@ public class RegistradoraController {
         tblRegistrosDAO.crear(tblRegistrosEntity);
         return "Registro Creado";
     }
-
+    
     @GetMapping(value = "/BuscarTodos")
     public List<TblRegistrosDTO> buscarTodos() {
         List<TblRegistrosEntity> listado = tblRegistrosDAO.buscarTodos();
@@ -49,17 +52,19 @@ public class RegistradoraController {
         for (TblRegistrosEntity registro : listado) {
             listado2.add(modelMapper.map(registro, TblRegistrosDTO.class));
         }
+        System.out.println(listado);
+        System.out.println(listado2);
         return listado2;
     }
 
-    @PostMapping(value = "/Actualizar")
+    @PutMapping(value = "/Actualizar")
     public String actualizarRegistro(@RequestBody @Valid TblRegistrosDTO input) {
         TblRegistrosEntity TblRegistrosEntity = modelMapper.map(input, TblRegistrosEntity.class);
         tblRegistrosDAO.actualizarRegistro(TblRegistrosEntity);
         return "Registro Actualizado";
     }
 
-    @PostMapping(value = "/Eliminar")
+    @DeleteMapping(value = "/Eliminar")
     public String borrarRegistro(@RequestBody @Valid TblRegistrosDTO input) {
         tblRegistrosDAO.borrarRegistro(input.getIdRegistro());
         return "Registro Eliminado";

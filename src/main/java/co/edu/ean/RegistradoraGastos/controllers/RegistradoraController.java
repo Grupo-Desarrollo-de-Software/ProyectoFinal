@@ -44,7 +44,7 @@ public class RegistradoraController {
         tblRegistrosDAO.crear(tblRegistrosEntity);
         return "Registro Creado";
     }
-    
+
     @GetMapping(value = "/BuscarTodos")
     public List<TblRegistrosDTO> buscarTodos() {
         List<TblRegistrosEntity> listado = tblRegistrosDAO.buscarTodos();
@@ -52,8 +52,6 @@ public class RegistradoraController {
         for (TblRegistrosEntity registro : listado) {
             listado2.add(modelMapper.map(registro, TblRegistrosDTO.class));
         }
-        System.out.println(listado);
-        System.out.println(listado2);
         return listado2;
     }
 
@@ -83,7 +81,7 @@ public class RegistradoraController {
         return listado;
     }
 
-    @GetMapping(value = "/BorrarTabla")
+    @DeleteMapping(value = "/BorrarTabla")
     public String borrarTotalRegistros() {
         tblRegistrosDAO.borrarTabla();
         return "Se han borrado todos los registros";
